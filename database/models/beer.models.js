@@ -1,4 +1,5 @@
 const { define, Datatypes } = require("sequelize");
+const Bar = require("./bar.model");
 
 const Beer = define("Beer", {
   id: {
@@ -18,7 +19,7 @@ const Beer = define("Beer", {
     type: Datatypes.FLOAT,
     allowNull: true,
   },
-  prix: {
+  price: {
     type: Datatypes.FLOAT,
     validate: { min: 0 },
     allowNull: true,
