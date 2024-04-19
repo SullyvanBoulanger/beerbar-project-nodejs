@@ -9,7 +9,7 @@ const Order = define("Order", {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   price: {
     type: DataTypes.FLOAT,

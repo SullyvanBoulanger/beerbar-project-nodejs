@@ -8,7 +8,7 @@ const Bar = define("Bar", {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   address: {
     type: DataTypes.STRING,

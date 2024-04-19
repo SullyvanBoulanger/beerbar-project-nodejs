@@ -12,16 +12,16 @@ const Beer = define("Beer", {
   },
   description: {
     type: Datatypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
   degree: {
     type: Datatypes.FLOAT,
-    allowNull: false,
+    allowNull: true,
   },
   prix: {
     type: Datatypes.FLOAT,
     validate: { min: 0 },
-    allowNull: false,
+    allowNull: true,
   },
   bar_id: {
     type: DataTypes.INTEGER,
