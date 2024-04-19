@@ -1,5 +1,5 @@
 const { define, DataTypes } = require("sequelize");
-const Bar = require("./Bar.model");
+const Bar = require("./bar.model");
 
 const Order = define("Order", {
   id: {
