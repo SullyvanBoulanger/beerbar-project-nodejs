@@ -18,6 +18,14 @@ const Order = define("Order", {
       min: 0,
     },
   },
+  bar_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Bar,
+      key: "id",
+    },
+    allowNull: true,
+  },
   date: {
     type: DataTypes.DATE,
     allowNull: true,
@@ -27,7 +35,5 @@ const Order = define("Order", {
     allowNull: true,
   },
 });
-
-Order.belongsTo(Bar);
 
 module.exports = Order;

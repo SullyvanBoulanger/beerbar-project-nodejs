@@ -24,8 +24,12 @@ const Beer = define("Beer", {
     allowNull: false,
   },
   bar_id: {
-    type: Datatypes.INTEGER,
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: Bar,
+      key: "id",
+    },
+    allowNull: true,
   },
 });
 
