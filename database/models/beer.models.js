@@ -1,7 +1,8 @@
-const { define, Datatypes } = require("sequelize");
+const { Datatypes } = require("sequelize");
+const sequelize = require("../index");
 const Bar = require("./bar.model");
 
-const Beer = define("Beer", {
+const Beer = sequelize.define("Beer", {
   id: {
     type: Datatypes.INTEGER,
     primaryKey: true,
