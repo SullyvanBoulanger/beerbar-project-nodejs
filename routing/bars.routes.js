@@ -4,7 +4,7 @@ const {
   createBar,
   updateBar,
   deleteBar,
-} = require("../controllers/bars.ctrl");
+} = require("../controllers/bar.ctrl");
 
 const router = require("express").Router();
 
