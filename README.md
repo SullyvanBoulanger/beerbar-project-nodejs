@@ -11,4 +11,14 @@
 
 ## Installation
 
+1. Install dependencies
+```bash
+npm i
+```
+
 ## Start the project
+
+1. Start server
+```bash
+npm start
+```
