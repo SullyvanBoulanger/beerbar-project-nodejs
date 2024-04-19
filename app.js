@@ -6,5 +6,7 @@ const app = express();
 const router = require("./routing");
 
 app.use(router);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 module.exports = app;
