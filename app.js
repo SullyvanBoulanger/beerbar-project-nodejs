@@ -2,8 +2,8 @@ require("dotenv").config();
 require("./database/index");
 const express = require("express");
 const app = express();
+const router = require("./routing");
 
-// DEV
-app.get("*", (req, res) => res.send("TEST"));
+app.use(router);
 
 module.exports = app;
