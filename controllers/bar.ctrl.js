@@ -11,8 +11,21 @@ module.exports.getBars = async (req, res) => {
   }
 };
 
-module.exports.getBar = (req, res) => {
-  res.status(200).json({});
+module.exports.getBar = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const bar = await Bar.findByPk(id);
+    if (!bar) {
+      return res.status(404).json({ error: "Bar introuvable" });
+    }
+    res.json(bar);
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        error: "Une erreur est survenue lors de la récupération du bar.",
+      });
+  }
 };
 
 module.exports.deleteBar = (req, res) => {
