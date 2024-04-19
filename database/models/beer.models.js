@@ -1,5 +1,5 @@
 const { Datatypes } = require("sequelize");
-const sequelize = require("../index");
+const sequelize = require("..");
 const Bar = require("./bar.model");
 
 const Beer = sequelize.define("Beer", {
