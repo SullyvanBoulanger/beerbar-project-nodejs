@@ -1,5 +1,5 @@
 const { define, DataTypes } = require("sequelize");
-const Bar = require("./Bar.model");
+const Bar = require("./bar.model");
 
 const Order = define("Order", {
   id: {
@@ -18,6 +18,14 @@ const Order = define("Order", {
       min: 0,
     },
   },
+  bar_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Bar,
+      key: "id",
+    },
+    allowNull: true,
+  },
   date: {
     type: DataTypes.DATE,
     allowNull: true,
@@ -27,7 +35,5 @@ const Order = define("Order", {
     allowNull: true,
   },
 });
-
-Order.belongsTo(Bar);
 
 module.exports = Order;
