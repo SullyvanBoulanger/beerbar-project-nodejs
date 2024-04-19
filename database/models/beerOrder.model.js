@@ -1,8 +1,9 @@
 const { define, DataTypes } = require("sequelize");
+const sequelize = require("../index");
 const Beer = require("./beer.model");
 const Order = require("./order.model");
 
-const BeerOrder = define("BeerOrder", {
+const BeerOrder = sequelize.define("BeerOrder", {
   beer_id: {
     type: DataTypes.INTEGER,
     references: {
