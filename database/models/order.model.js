@@ -2,6 +2,11 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("..");
 const Bar = require("./bar.model");
 
+const Status = {
+  IN_PROGRESS: "en cours",
+  COMPLETED: "terminée",
+};
+
 const Order = sequelize.define("Order", {
   id: {
     type: DataTypes.INTEGER,
@@ -25,7 +30,7 @@ const Order = sequelize.define("Order", {
       model: Bar,
       key: "id",
     },
-    allowNull: true,
+    allowNull: false,
   },
   date: {
     type: DataTypes.DATE,
@@ -34,7 +39,12 @@ const Order = sequelize.define("Order", {
   status: {
     type: DataTypes.STRING,
     allowNull: true,
+    validate: {
+      isIn: [Object.values(Status)],
+    },
   },
 });
+
+Order.belongsTo(Bar, { foreignKey: "bar_id" });
 
 module.exports = Order;
