@@ -1,5 +1,7 @@
 ssl/*
 !ssl/.gitkeep
+db.sqlite
+database/db.sqlite
 
 # Logs
 logs

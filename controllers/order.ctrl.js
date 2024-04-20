@@ -22,8 +22,17 @@ module.exports.deleteOrder = (req, res) => {
   res.status(200).json({});
 };
 
-module.exports.getOrdersByBar = (req, res) => {
-  res.status(200).json({});
+module.exports.getOrdersByBar = async (req, res) => {
+  const { bar_id } = req.params;
+
+  try {
+    const orders = await Order.findAll({ where: { bar_id } });
+    res.status(200).json(orders);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Impossible de récupérer les commandes." });
+  }
 };
 
 module.exports.getOrderById = (req, res) => {
