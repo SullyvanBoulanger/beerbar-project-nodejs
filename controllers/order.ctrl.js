@@ -1,5 +1,17 @@
-module.exports.postOrder = (req, res) => {
-  res.status(200).json({});
+const Order = require("../database/models/order.model");
+
+module.exports.postOrder = async (req, res) => {
+  const { bar_id } = req.params;
+
+  try {
+    if (!bar_id || isNaN(bar_id)) {
+      return res.status(400).json({ error: "L'url est mal formée." });
+    }
+    await Order.create({ ...req.body, bar_id });
+    res.status(200).json({ message: "La commande a bien été créée." });
+  } catch (error) {
+    return res.status(500).json({ error: "Impossible de créer la commande." });
+  }
 };
 
 module.exports.putOrder = (req, res) => {
