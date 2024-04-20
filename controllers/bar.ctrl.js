@@ -26,7 +26,7 @@ module.exports.getBar = async (req, res) => {
   }
 };
 
-module.exports.createBar = (req, res) => {
+module.exports.createBar = async (req, res) => {
   res.status(200).json({});
 };
 
