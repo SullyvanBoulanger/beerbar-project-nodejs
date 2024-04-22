@@ -7,8 +7,8 @@ module.exports.postOrder = async (req, res) => {
     if (!bar_id || isNaN(bar_id)) {
       return res.status(400).json({ error: "L'url est mal formée." });
     }
-    await Order.create({ ...req.body, bar_id });
-    res.status(200).json({ message: "La commande a bien été créée." });
+    const order = await Order.create({ ...req.body, bar_id });
+    res.status(200).json(order);
   } catch (error) {
     return res.status(500).json({ error: "Impossible de créer la commande." });
   }
