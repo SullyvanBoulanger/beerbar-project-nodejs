@@ -65,7 +65,7 @@ module.exports.updateBar = async (req, res) => {
       description,
     });
 
-    res.status(200).json({ message: "Bar mis à jour avec succès." });
+    res.status(200).json(bar);
   } catch (error) {
     res.status(500).json({
       error: "Une erreur est survenue lors de la mise à jour du bar.",
