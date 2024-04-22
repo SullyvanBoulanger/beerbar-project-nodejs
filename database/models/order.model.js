@@ -19,7 +19,7 @@ const Order = sequelize.define("Order", {
   },
   price: {
     type: DataTypes.FLOAT,
-    allowNull: true,
+    allowNull: false,
     validate: {
       min: 0,
     },
@@ -33,12 +33,12 @@ const Order = sequelize.define("Order", {
     allowNull: false,
   },
   date: {
-    type: DataTypes.DATE,
-    allowNull: true,
+    type: DataTypes.DATEONLY,
+    allowNull: false,
   },
   status: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
     validate: {
       isIn: [Object.values(Status)],
     },
