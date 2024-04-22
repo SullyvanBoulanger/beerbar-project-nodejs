@@ -44,8 +44,20 @@ module.exports.deleteBar = async (req, res) => {
 };
 
 module.exports.createBar = async (req, res) => {
-  const newBar = await Bar.create(req.body);
-  res.status(200).json(newBar);
+  try {
+    const newBar = await Bar.create({
+      name: req.body.name,
+      address: req.body.address,
+      tel: req.body.tel,
+      email: req.body.email,
+      description: req.body.description,
+    });
+    res.status(200).json(newBar);
+  } catch(error){
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la création du bar.",
+    });
+  }
 };
 
 module.exports.updateBar = async (req, res) => {
