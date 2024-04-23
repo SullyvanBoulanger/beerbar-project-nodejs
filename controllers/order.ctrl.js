@@ -1,4 +1,6 @@
+const sequelize = require("../database");
 const Order = require("../database/models/order.model");
+const { Op } = require("sequelize");
 
 module.exports.postOrder = async (req, res) => {
   const { bar_id } = req.params;
@@ -58,10 +60,18 @@ module.exports.deleteOrder = async (req, res) => {
 
 module.exports.getOrdersByBar = async (req, res) => {
   const { bar_id } = req.params;
+  const { date: dateFromQuery } = req.query;
 
   try {
-    const orders = await Order.findAll({ where: { bar_id } });
-    res.status(200).json(orders);
+    let orders;
+    let where = { bar_id };
+    if (dateFromQuery) {
+      where.date = {
+        [Op.eq]: sequelize.fn("DATE", dateFromQuery),
+      };
+    }
+    orders = await Order.findAll({ where });
+    res.status(200).json(orders.reverse());
   } catch (error) {
     return res
       .status(500)
