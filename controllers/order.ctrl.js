@@ -60,16 +60,29 @@ module.exports.deleteOrder = async (req, res) => {
 
 module.exports.getOrdersByBar = async (req, res) => {
   const { bar_id } = req.params;
-  const { date: dateFromQuery } = req.query;
+  const { date: dateFromQuery, price_min, price_max } = req.query;
 
   try {
     let orders;
     let where = { bar_id };
+
     if (dateFromQuery) {
-      where.date = {
-        [Op.eq]: sequelize.fn("DATE", dateFromQuery),
-      };
+      where.date = sequelize.fn("DATE", dateFromQuery);
     }
+
+    if (
+      (price_min && price_max && price_min < price_max) ||
+      +price_min == +price_max
+    ) {
+      where.price = {
+        [Op.between]: [price_min, price_max],
+      };
+    } else if (price_min > price_max) {
+      return res
+        .status(400)
+        .json({ error: "Le prix minimum est supérieur au maximum..." });
+    }
+
     orders = await Order.findAll({ where });
     res.status(200).json(orders.reverse());
   } catch (error) {
