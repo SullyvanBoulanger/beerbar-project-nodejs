@@ -8,10 +8,10 @@ const {
 
 const router = require("express").Router();
 
-router.get("/bars/:id_bar/beer", getBeersByBar);
-router.get("/beer/:id_beer", getBeer);
-router.post("/bars/:id_bar/beer", createBeer);
-router.put("/beer/:id_beer", updateBeer);
-router.delete("/beer/:id_beer", deleteBeer);
+router.get("/bars/:bar_id/beer", getBeersByBar);
+router.get("/beer/:beer_id", getBeer);
+router.post("/bars/:bar_id/beer", createBeer);
+router.put("/beer/:beer_id", updateBeer);
+router.delete("/beer/:beer_id", deleteBeer);
 
 module.exports = router;
