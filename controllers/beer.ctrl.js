@@ -4,20 +4,29 @@ module.exports.getBeers = (req, res) => {
   res.status(200).json({ message: "Liste de toutes les beers" });
 };
 
-module.exports.getBeer = (req, res) => {
-  const id_beer = req.params.id_beer;
-  res.status(200).json({ message: `Détails de la bière avec l'ID ${id_beer}` });
-};
+module.exports.getBeer = async (req, res) => {
+  try {
+    const { beer_id } = req.params; 
+    const beer = await Beer.findByPk(beer_id);
 
-module.exports.getBeersByBar = (req, res) => {
-  res.status(200).json({});
+    if(!beer) {
+      res.status(404).json({
+        error: "Bière introuvable."
+      });
+    }
+    res.status(200).json(beer);
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération de la bière."
+    })
+  }
 };
 
 module.exports.deleteBeer = (req, res) => {
   const beer_id = req.params.beer_id;
   res
     .status(200)
-    .json({ message: `La beer avec l'ID ${beer_id} a été supprimée` });
+    .json({ message: `La bière avec l'ID ${beer_id} a été supprimée` });
 };
 
 module.exports.createBeer = async (req, res) => {
