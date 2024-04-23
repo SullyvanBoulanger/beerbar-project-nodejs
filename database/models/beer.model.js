@@ -1,27 +1,27 @@
-const { Datatypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("..");
 const Bar = require("./bar.model");
 
 const Beer = sequelize.define("Beer", {
   id: {
-    type: Datatypes.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
   name: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
-    type: Datatypes.TEXT,
+    type: DataTypes.TEXT,
     allowNull: true,
   },
   degree: {
-    type: Datatypes.FLOAT,
+    type: DataTypes.FLOAT,
     allowNull: true,
   },
   price: {
-    type: Datatypes.FLOAT,
+    type: DataTypes.FLOAT,
     validate: { min: 0 },
     allowNull: true,
   },
