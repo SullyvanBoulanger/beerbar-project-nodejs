@@ -35,6 +35,20 @@ module.exports.getOrdersByBar = async (req, res) => {
   }
 };
 
-module.exports.getOrderById = (req, res) => {
-  res.status(200).json({});
+module.exports.getOrderById = async (req, res) => {
+  try {
+    const { order_id } = req.params; 
+    const order = await Order.findByPk(order_id);
+
+    if(!order) {
+      res.status(404).json({
+        error: "Commande introuvable."
+      });
+    }
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération de la commande."
+    })
+  }
 };
