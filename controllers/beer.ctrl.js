@@ -1,7 +1,6 @@
 const { response } = require("../app");
 const Bar = require("../database/models/bar.model");
 const Beer = require("../database/models/beer.model");
-const Beer = require("../models/beer.model");
 
 module.exports.getBeers = (req, res) => {
   res.status(200).json({ message: "Liste de toutes les beers" });
@@ -12,7 +11,7 @@ module.exports.getBeersByBar = (req, res) => {
 };
 
 module.exports.getBeer = (req, res) => {
-  const id_beer = req.params.id_beer;
+  const beer_id = req.params.beer_id;
   res.status(200).json({ message: `Détails de la bière avec l'ID ${id_beer}` });
 };
 
@@ -24,7 +23,7 @@ module.exports.deleteBeer = (req, res) => {
 };
 
 module.exports.createBeer = async (req, res) => {
-  const id_bar = req.params.id_bar;
+  const bar_id = req.params.bar_id;
 
   try {
     const bar = await Bar.findByPk(id_bar);
