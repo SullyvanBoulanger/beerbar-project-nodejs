@@ -11,13 +11,13 @@ module.exports.getBeer = async (req, res) => {
 
     if(!beer) {
       res.status(404).json({
-        error: "Commande introuvable."
+        error: "bière introuvable."
       });
     }
     res.status(200).json(beer);
   } catch (error) {
     res.status(500).json({
-      error: "Une erreur est survenue lors de la récupération de la commande."
+      error: "Une erreur est survenue lors de la récupération de la bière."
     })
   }
 };
@@ -30,7 +30,7 @@ module.exports.deleteBeer = (req, res) => {
 };
 
 module.exports.createBeer = (req, res) => {
-  res.status(200).json({ message: "Nouvelle beer créée avec succès" });
+  res.status(200).json({ message: "Nouvelle bière créée avec succès" });
 };
 
 module.exports.updateBeer = (req, res) => {
