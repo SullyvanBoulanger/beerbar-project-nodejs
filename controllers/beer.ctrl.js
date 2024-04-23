@@ -1,7 +1,5 @@
-const { response } = require("../app");
 const Bar = require("../database/models/bar.model");
 const Beer = require("../database/models/beer.model");
-const Beer = require("../models/beer.model");
 
 module.exports.getBeers = (req, res) => {
   res.status(200).json({ message: "Liste de toutes les beers" });
@@ -16,11 +14,24 @@ module.exports.getBeer = (req, res) => {
   res.status(200).json({ message: `Détails de la bière avec l'ID ${id_beer}` });
 };
 
-module.exports.deleteBeer = (req, res) => {
+module.exports.deleteBeer = async (req, res) => {
   const beer_id = req.params.beer_id;
-  res
-    .status(200)
-    .json({ message: `La beer avec l'ID ${beer_id} a été supprimée` });
+
+  try {
+    const beer = await Beer.findByPk(beer_id);
+
+    if (!beer) {
+      return res.status(404).json({ error: "La bière n'existe pas" });
+    }
+
+    await beer.destroy();
+
+    res
+      .status(200)
+      .json({ message: `La bière avec l'ID ${beer_id} a été supprimée` });
+  } catch (error) {
+    res.status(500).json({ error: "La suppression de la bière a échoué" });
+  }
 };
 
 module.exports.createBeer = async (req, res) => {
