@@ -1,4 +1,4 @@
-const Beer = require("../database/models/beer.models");
+const Beer = require("../database/models/beer.model");
 
 module.exports.getBeers = (req, res) => {
   res.status(200).json({ message: "Liste de toutes les beers" });
