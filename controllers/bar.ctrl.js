@@ -34,6 +34,11 @@ module.exports.getBar = async (req, res) => {
   }
 };
 
+module.exports.createBar = async (req, res) => {
+  await Bar.create(req.body);
+  res.status(200).json({});
+};
+
 module.exports.deleteBar = async (req, res) => {
   try {
     const { bar_id } = req.params;
