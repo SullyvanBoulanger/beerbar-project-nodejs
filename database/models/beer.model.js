@@ -14,16 +14,17 @@ const Beer = sequelize.define("Beer", {
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: true,
+    allowNull: false,
   },
-  degree: {
+  degrees: {
     type: DataTypes.FLOAT,
-    allowNull: true,
+    validate: { min: 0 },
+    allowNull: false,
   },
   price: {
     type: DataTypes.FLOAT,
     validate: { min: 0 },
-    allowNull: true,
+    allowNull: false,
   },
   bar_id: {
     type: DataTypes.INTEGER,
@@ -31,7 +32,7 @@ const Beer = sequelize.define("Beer", {
       model: Bar,
       key: "id",
     },
-    allowNull: true,
+    allowNull: false,
   },
 });
 

@@ -1,8 +1,16 @@
 const Bar = require("../database/models/bar.model");
+const { Op } = require("sequelize");
 
 module.exports.getBars = async (req, res) => {
+  const { name } = req.query;
+
   try {
-    const bars = await Bar.findAll();
+    let bars;
+    if (name) {
+      bars = await Bar.findAll({ where: { name: { [Op.like]: `%${name}%` } } });
+    } else {
+      bars = await Bar.findAll();
+    }
     res.status(200).json(bars);
   } catch (error) {
     res.status(500).json({
@@ -24,6 +32,11 @@ module.exports.getBar = async (req, res) => {
       error: "Une erreur est survenue lors de la récupération du bar.",
     });
   }
+};
+
+module.exports.createBar = async (req, res) => {
+  await Bar.create(req.body);
+  res.status(200).json({});
 };
 
 module.exports.deleteBar = async (req, res) => {
