@@ -11,7 +11,7 @@ module.exports.getBeer = async (req, res) => {
 
     if(!beer) {
       res.status(404).json({
-        error: "bière introuvable."
+        error: "Bière introuvable."
       });
     }
     res.status(200).json(beer);
