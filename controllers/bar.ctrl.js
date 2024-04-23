@@ -2,12 +2,13 @@ const Bar = require("../database/models/bar.model");
 const { Op } = require("sequelize");
 
 module.exports.getBars = async (req, res) => {
-  const { name } = req.query;
-
+  const { name, ville } = req.query;
   try {
     let bars;
     if (name) {
       bars = await Bar.findAll({ where: { name: { [Op.like]: `%${name}%` } } });
+    } else if (ville) {
+      bars = await Bar.findAll({ where: { address: { [Op.like]: `%${ville}%` } } });
     } else {
       bars = await Bar.findAll();
     }
@@ -66,7 +67,7 @@ module.exports.createBar = async (req, res) => {
       description: req.body.description,
     });
     res.status(200).json(newBar);
-  } catch(error){
+  } catch (error) {
     res.status(500).json({
       error: "Une erreur est survenue lors de la création du bar.",
     });
