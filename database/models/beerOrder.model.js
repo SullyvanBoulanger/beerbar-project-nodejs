@@ -4,23 +4,14 @@ const Beer = require("./beer.model");
 const Order = require("./order.model");
 
 const BeerOrder = sequelize.define("BeerOrder", {
-  beer_id: {
+  id: {
     type: DataTypes.INTEGER,
-    references: {
-      model: Beer,
-      key: "id",
-    },
-  },
-  order_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Order,
-      key: "id",
-    },
+    primaryKey: true,
+    autoIncrement: true,
   },
 });
 
-Beer.belongsToMany(Order, { through: BeerOrder });
-Order.belongsToMany(Beer, { through: BeerOrder });
+Beer.belongsToMany(Order, { through: "BeerOrder" });
+Order.belongsToMany(Beer, { through: "BeerOrder" });
 
 module.exports = BeerOrder;
