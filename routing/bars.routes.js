@@ -9,9 +9,9 @@ const {
 const router = require("express").Router();
 
 router.get("", getBars);
-router.get("/:id", getBar);
+router.get("/:bar_id", getBar);
 router.post("", createBar);
-router.put("/:id", updateBar);
-router.delete("/:id", deleteBar);
+router.put("/:bar_id", updateBar);
+router.delete("/:bar_id", deleteBar);
 
 module.exports = router;
