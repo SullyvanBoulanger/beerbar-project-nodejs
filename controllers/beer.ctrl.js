@@ -1,18 +1,29 @@
-const { response } = require("../app");
 const Bar = require("../database/models/bar.model");
 const Beer = require("../database/models/beer.model");
 const Beer = require("../models/beer.model");
 
-module.exports.getBeers = (req, res) => {
-  res.status(200).json({ message: "Liste de toutes les beers" });
+module.exports.getBeers = async (req, res) => {
+  try {
+    const { bar_id } = req.params;
+    const beers = await Beer.findAll({
+      where: {
+        bar_id
+      }
+    });
+    res.status(200).json(beers);
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération des bières du bar."
+    })
+  }
 };
 
 module.exports.getBeer = async (req, res) => {
   try {
-    const { beer_id } = req.params; 
+    const { beer_id } = req.params;
     const beer = await Beer.findByPk(beer_id);
 
-    if(!beer) {
+    if (!beer) {
       res.status(404).json({
         error: "Bière introuvable."
       });
