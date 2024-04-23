@@ -4,6 +4,7 @@ const {
   updateBeer,
   deleteBeer,
   getBeersByBar,
+  getAverageBeerDegrees,
 } = require("../controllers/beer.ctrl");
 
 const router = require("express").Router();
