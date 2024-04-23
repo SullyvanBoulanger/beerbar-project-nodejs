@@ -13,8 +13,8 @@ module.exports.getBars = async (req, res) => {
 
 module.exports.getBar = async (req, res) => {
   try {
-    const { id } = req.params;
-    const bar = await Bar.findByPk(id);
+    const { bar_id } = req.params;
+    const bar = await Bar.findByPk(bar_id);
     if (!bar) {
       return res.status(404).json({ error: "Bar introuvable" });
     }
@@ -32,8 +32,8 @@ module.exports.createBar = async (req, res) => {
 
 module.exports.deleteBar = async (req, res) => {
   try {
-    const { id } = req.params;
-    const bar = await Bar.findByPk(id);
+    const { bar_id } = req.params;
+    const bar = await Bar.findByPk(bar_id);
     if (!bar) {
       return res.status(404).json({ error: "Bar introuvable." });
     }
@@ -49,10 +49,10 @@ module.exports.deleteBar = async (req, res) => {
 
 module.exports.updateBar = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { bar_id } = req.params;
     const { name, address, tel, email, description } = req.body;
 
-    const bar = await Bar.findByPk(id);
+    const bar = await Bar.findByPk(bar_id);
     if (!bar) {
       return res.status(404).json({ error: "Bar introuvable." });
     }
