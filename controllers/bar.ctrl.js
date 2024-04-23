@@ -1,8 +1,16 @@
 const Bar = require("../database/models/bar.model");
+const { Op } = require("sequelize");
 
 module.exports.getBars = async (req, res) => {
+  const { name } = req.query;
+
   try {
-    const bars = await Bar.findAll();
+    let bars;
+    if (name) {
+      bars = await Bar.findAll({ where: { name: { [Op.like]: `%${name}%` } } });
+    } else {
+      bars = await Bar.findAll();
+    }
     res.status(200).json(bars);
   } catch (error) {
     res.status(500).json({
