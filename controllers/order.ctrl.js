@@ -14,12 +14,46 @@ module.exports.postOrder = async (req, res) => {
   }
 };
 
-module.exports.putOrder = (req, res) => {
-  res.status(200).json({});
+module.exports.putOrder = async (req, res) => {
+  try {
+    const { order_id } = req.params;
+    const { name, price, bar_id, date, status } = req.body;
+
+    const order = await Order.findByPk(order_id);
+    if (!order) {
+      return res.status(404).json({ error: "Commande introuvable." });
+    }
+
+    await order.update({
+      name,
+      price,
+      bar_id,
+      date,
+      status,
+    });
+
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la mise à jour de la commande.",
+    });
+  }
 };
 
-module.exports.deleteOrder = (req, res) => {
-  res.status(200).json({});
+module.exports.deleteOrder = async (req, res) => {
+  try {
+    const { order_id } = req.params;
+    const order = await Order.findByPk(order_id);
+    if (!order) {
+      return res.status(404).json({ error: "Commande introuvable." });
+    }
+    await order.destroy();
+    res.status(200).json({ message: "Commande supprimée avec succès." });
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la suppression de la commande.",
+    });
+  }
 };
 
 module.exports.getOrdersByBar = async (req, res) => {
@@ -35,6 +69,20 @@ module.exports.getOrdersByBar = async (req, res) => {
   }
 };
 
-module.exports.getOrderById = (req, res) => {
-  res.status(200).json({});
+module.exports.getOrderById = async (req, res) => {
+  try {
+    const { order_id } = req.params; 
+    const order = await Order.findByPk(order_id);
+
+    if(!order) {
+      res.status(404).json({
+        error: "Commande introuvable."
+      });
+    }
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération de la commande."
+    })
+  }
 };
