@@ -24,14 +24,6 @@ const Order = sequelize.define("Order", {
       min: 0,
     },
   },
-  bar_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Bar,
-      key: "id",
-    },
-    allowNull: false,
-  },
   date: {
     type: DataTypes.DATEONLY,
     allowNull: false,
@@ -45,6 +37,6 @@ const Order = sequelize.define("Order", {
   },
 });
 
-Order.belongsTo(Bar, { foreignKey: "bar_id" });
+Order.belongsTo(Bar, { foreignKey: "bar_id", onDelete: "CASCADE" });
 
 module.exports = Order;
