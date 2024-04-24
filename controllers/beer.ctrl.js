@@ -24,7 +24,7 @@ module.exports.getBeer = async (req, res) => {
     if (!beer) {
       res.status(404).json({ error: Errors.BEER_NOT_FOUND });
     }
-    
+
     res.status(200).json(beer);
   } catch (error) {
     res.status(500).json({ error: Errors.BEER_GET });
@@ -32,9 +32,8 @@ module.exports.getBeer = async (req, res) => {
 };
 
 module.exports.deleteBeer = async (req, res) => {
-  const { beer_id } = req.params;
-
   try {
+    const { beer_id } = req.params;
     const beer = await Beer.findByPk(beer_id);
 
     if (!beer) {
@@ -42,7 +41,7 @@ module.exports.deleteBeer = async (req, res) => {
     }
 
     await beer.destroy();
-    
+
     res
       .status(200)
       .json({ message: `La bière avec l'ID ${beer_id} a bien été supprimée.` });
@@ -52,9 +51,8 @@ module.exports.deleteBeer = async (req, res) => {
 };
 
 module.exports.createBeer = async (req, res) => {
-  const bar_id = req.params.bar_id;
-
   try {
+    const { bar_id } = req.params;
     const bar = await Bar.findByPk(bar_id);
 
     if (!bar) {
@@ -72,9 +70,8 @@ module.exports.createBeer = async (req, res) => {
 };
 
 module.exports.updateBeer = async (req, res) => {
-  const beer_id = req.params.beer_id;
-
   try {
+    const { beer_id } = req.params;
     const beer = await Beer.findByPk(beer_id);
 
     if (!beer) {

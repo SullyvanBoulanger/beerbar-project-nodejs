@@ -3,17 +3,18 @@ const Errors = require("../utils/errors");
 const { Op } = require("sequelize");
 
 module.exports.getBars = async (req, res) => {
-  const { name, city } = req.query;
-  let where = {};
-
-  const buildWhereClause = (k, v) => (where[k] = { [Op.like]: `%${v}%` });
-
-  for (let q in req.query) {
-    if (q === "name" && name) buildWhereClause("name", name);
-    else if (city) buildWhereClause("address", city);
-  }
-
   try {
+    const { name, city } = req.query;
+    let where = {};
+
+    const buildWhereClause = (key, value) =>
+      (where[key] = { [Op.like]: `%${value}%` });
+
+    for (let q in req.query) {
+      if (q === "name" && name) buildWhereClause("name", name);
+      else if (city) buildWhereClause("address", city);
+    }
+
     const bars = await Bar.findAll({ where });
     res.status(200).json(bars);
   } catch (error) {
@@ -65,9 +66,9 @@ module.exports.createBar = async (req, res) => {
 };
 
 module.exports.updateBar = async (req, res) => {
-  const { bar_id } = req.params;
-
   try {
+    const { bar_id } = req.params;
+
     const bar = await Bar.findByPk(bar_id);
 
     if (!bar) {
