@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "fixtures": "node database/fixtures/index.js"
+    "fixtures": "node -r dotenv/config database/fixtures"
   },
   "author": "",
   "license": "ISC",
