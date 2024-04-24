@@ -1,48 +1,36 @@
-
 const Order = require("../database/models/order.model");
 const Beer = require("../database/models/beer.model");
 const BeerOrder = require("../database/models/beerOrder.model");
+const Errors = require("../utils/errors");
 
 module.exports.addBeerToOrder = async (req, res) => {
   try {
-    const { order_id, beer_id } = req.params;
+    const { order_id: OrderId, beer_id: BeerId } = req.params;
 
-    const order = await Order.findByPk(order_id);
-    const beer = await Beer.findByPk(beer_id);
+    const order = await Order.findByPk(OrderId);
+    const beer = await Beer.findByPk(BeerId);
 
     if (!order || !beer) {
-      res.status(404).json({
-        error: "Bière ou Commande introuvable.",
-      });
+      return res.status(404).json({ error: Errors.BEER_OR_ORDER_NOT_FOUND });
     }
 
-    const beerOrder = await BeerOrder.create({
-      beer_id: beer.id,
-      order_id: order.id,
-    });
-
-    res.status(200).json(beerOrder);
+    const beerOrder = await BeerOrder.create({ OrderId, BeerId });
+    res.status(201).json(beerOrder);
   } catch (error) {
-    res.status(500).json({
-      error: `Une erreur est survenue lors de la création de la commande de la bière.`,
-    });
+    res.status(500).json({ error: Errors.BEER_ORDER_CREATE });
   }
 };
 
 module.exports.removeBeerFromOrder = async (req, res) => {
   try {
-    const { order_id, beer_id } = req.params;
+    const { order_id: OrderId, beer_id: BeerId } = req.params;
+
     const beerOrder = await BeerOrder.findOne({
-      where: {
-        order_id,
-        beer_id,
-      },
+      where: { OrderId, BeerId },
     });
 
     if (!beerOrder) {
-      res.status(404).json({
-        error: "Commande de bière introuvable.",
-      });
+      return res.status(404).json({ error: Errors.BEER_ORDER_NOT_FOUND });
     }
 
     await beerOrder.destroy();
@@ -50,8 +38,6 @@ module.exports.removeBeerFromOrder = async (req, res) => {
       .status(200)
       .json({ message: "Commande de bière supprimée avec succès." });
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la suppression de la commande de bière.",
-    });
+    res.status(500).json({ error: Errors.BEER_ORDER_DELETE });
   }
 };

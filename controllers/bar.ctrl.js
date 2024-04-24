@@ -1,22 +1,24 @@
 const Bar = require("../database/models/bar.model");
+const Errors = require("../utils/errors");
 const { Op } = require("sequelize");
 
 module.exports.getBars = async (req, res) => {
-  const { name, ville } = req.query;
   try {
-    let bars;
-    if (name) {
-      bars = await Bar.findAll({ where: { name: { [Op.like]: `%${name}%` } } });
-    } else if (ville) {
-      bars = await Bar.findAll({ where: { address: { [Op.like]: `%${ville}%` } } });
-    } else {
-      bars = await Bar.findAll();
+    const { name, city } = req.query;
+    let where = {};
+
+    const buildWhereClause = (key, value) =>
+      (where[key] = { [Op.like]: `%${value}%` });
+
+    for (let q in req.query) {
+      if (q === "name" && name) buildWhereClause("name", name);
+      else if (city) buildWhereClause("address", city);
     }
+
+    const bars = await Bar.findAll({ where });
     res.status(200).json(bars);
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la récupération des bars.",
-    });
+    res.status(500).json({ error: Errors.BARS_GET });
   }
 };
 
@@ -25,19 +27,12 @@ module.exports.getBar = async (req, res) => {
     const { bar_id } = req.params;
     const bar = await Bar.findByPk(bar_id);
     if (!bar) {
-      return res.status(404).json({ error: "Bar introuvable" });
+      return res.status(404).json({ error: Errors.BAR_NOT_FOUND });
     }
     res.json(bar);
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la récupération du bar.",
-    });
+    res.status(500).json({ error: Errors.BAR_GET });
   }
-};
-
-module.exports.createBar = async (req, res) => {
-  await Bar.create(req.body);
-  res.status(200).json({});
 };
 
 module.exports.deleteBar = async (req, res) => {
@@ -45,57 +40,44 @@ module.exports.deleteBar = async (req, res) => {
     const { bar_id } = req.params;
     const bar = await Bar.findByPk(bar_id);
     if (!bar) {
-      return res.status(404).json({ error: "Bar introuvable." });
+      return res.status(404).json({ error: Errors.BAR_NOT_FOUND });
     }
     await bar.destroy();
 
     res.status(200).json({ message: "Bar supprimé avec succès." });
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la suppression du bar.",
-    });
+    res.status(500).json({ error: Errors.BAR_DELETE });
   }
 };
 
 module.exports.createBar = async (req, res) => {
   try {
-    const newBar = await Bar.create({
-      name: req.body.name,
-      address: req.body.address,
-      tel: req.body.tel,
-      email: req.body.email,
-      description: req.body.description,
-    });
+    const bar = await Bar.findOne({ where: { email: req.body.email } });
+
+    if (bar) {
+      return res.status(409).json({ error: Errors.BAR_DUPLICATE });
+    }
+
+    const newBar = await Bar.create(req.body);
     res.status(200).json(newBar);
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la création du bar.",
-    });
+    res.status(500).json({ error: Errors.BAR_CREATE });
   }
 };
 
 module.exports.updateBar = async (req, res) => {
   try {
     const { bar_id } = req.params;
-    const { name, address, tel, email, description } = req.body;
 
     const bar = await Bar.findByPk(bar_id);
+
     if (!bar) {
-      return res.status(404).json({ error: "Bar introuvable." });
+      return res.status(404).json({ error: Errors.BAR_NOT_FOUND });
     }
 
-    await bar.update({
-      name,
-      address,
-      tel,
-      email,
-      description,
-    });
-
+    await bar.update(req.body);
     res.status(200).json(bar);
   } catch (error) {
-    res.status(500).json({
-      error: "Une erreur est survenue lors de la mise à jour du bar.",
-    });
+    res.status(500).json({ error: Errors.BAR_UPDATE });
   }
 };

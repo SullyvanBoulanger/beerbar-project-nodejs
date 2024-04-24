@@ -5,7 +5,6 @@ const {
   updateBar,
   deleteBar,
 } = require("../controllers/bar.ctrl");
-
 const router = require("express").Router();
 
 router.get("", getBars);

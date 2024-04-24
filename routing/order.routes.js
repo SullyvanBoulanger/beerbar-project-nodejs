@@ -1,17 +1,16 @@
 const {
-  postOrder,
-  putOrder,
+  createOrder,
+  updateOrder,
   deleteOrder,
   getOrdersByBar,
-  getOrderById,
+  getOrder,
 } = require("../controllers/order.ctrl");
-
 const router = require("express").Router();
 
-router.post("/bars/:bar_id/commandes", postOrder);
-router.put("/commandes/:order_id", putOrder);
-router.delete("/commandes/:order_id", deleteOrder);
-router.get("/bars/:bar_id/commandes", getOrdersByBar);
-router.get("/commandes/:order_id", getOrderById);
+router.post("/bars/:bar_id/orders", createOrder);
+router.put("/orders/:order_id", updateOrder);
+router.delete("/orders/:order_id", deleteOrder);
+router.get("/bars/:bar_id/orders", getOrdersByBar);
+router.get("/orders/:order_id", getOrder);
 
 module.exports = router;
