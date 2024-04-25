@@ -20,7 +20,7 @@ router.post(
 );
 router.put(
   "/orders/:order_id",
-  [validateOrderStatus(),validatePositiveOrderPrice(), validateStatusOrderBeers() ,  catchError],
+  [validateOrderStatus(),validatePositiveOrderPrice(), validateStatusOrderBeers() , catchError],
   updateOrder
 );
 router.delete("/orders/:order_id", deleteOrder);
