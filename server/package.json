@@ -1,5 +1,5 @@
 {
-  "name": "beerbar-project-nodejs",
+  "name": "beerbar-project-nodejs-server",
   "version": "1.0.0",
   "description": "- [beerbar-project-nodejs](#beerbar-project-nodejs)   - [Instructions](#instructions)   - [Installation](#installation)   - [Start the project](#start-the-project)",
   "main": "app.js",
