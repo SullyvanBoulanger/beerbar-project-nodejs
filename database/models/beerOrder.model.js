@@ -11,7 +11,7 @@ const BeerOrder = sequelize.define("BeerOrder", {
   },
 });
 
-Beer.belongsToMany(Order, { through: "BeerOrder", onDelete: "CASCADE" });
-Order.belongsToMany(Beer, { through: "BeerOrder", onDelete: "CASCADE" });
+Beer.belongsToMany(Order, { through: "BeerOrder" });
+Order.belongsToMany(Beer, { through: "BeerOrder" });
 
 module.exports = BeerOrder;
