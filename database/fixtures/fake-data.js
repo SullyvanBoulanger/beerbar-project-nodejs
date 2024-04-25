@@ -58,7 +58,7 @@ module.exports.seedDatabase = async (
     );
   }
   console.log(
-    `${numBars} bars, ${numOrders} commandes, et ${numBeers} bières ont été créés.`
+    `\n\nCREATED:\n${numBars} bars, ${numOrders} orders, et ${numBeers} deers.`
   );
 };
 
