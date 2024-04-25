@@ -10,6 +10,8 @@ const {
   validatePositiveOrderPrice,
   dateOrderTodayDate,
   requiredBodyField,
+  validateStatusOrderBeers,
+  validateStatusOrderFinish
 } = require("../middlewares/order.validator");
 const { catchError } = require("../middlewares/catchError");
 const router = require("express").Router();
@@ -32,6 +34,8 @@ router.put(
     dateOrderTodayDate(),
     requiredBodyField(),
     validatePositiveOrderPrice(),
+    validateStatusOrderBeers(),
+    validateStatusOrderFinish(),
     catchError,
   ],
   updateOrder

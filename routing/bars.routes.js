@@ -5,10 +5,8 @@ const {
   updateBar,
   deleteBar,
 } = require("../controllers/bar.ctrl");
-const { validateBar } = require("../middlewares/bar.validator");
-const { catchError } = require("../middlewares/catchError");
 const router = require("express").Router();
-const { requiredBodyField } = require("../middlewares/bar.validator");
+const { requiredBodyField, validateBar } = require("../middlewares/bar.validator");
 const { catchError } = require("../middlewares/catchError");
 
 router.get("", getBars);

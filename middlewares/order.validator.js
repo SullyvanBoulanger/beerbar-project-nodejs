@@ -1,5 +1,8 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
+const BeerOrder = require("../database/models/beerOrder.model");
+const Order = require("../database/models/order.model");
 const Status = ["en cours", "terminée"];
+
 module.exports.validateOrderStatus = () =>
   body("status", "Status doit être soit en cours ou terminée.").isIn(Status);
 
@@ -29,3 +32,23 @@ module.exports.requiredBodyField = () =>
   )
     .notEmpty()
     .exists();
+
+module.exports.validateStatusOrderBeers = () =>
+  param("order_id").custom(async order_id => {
+    const beersFromOrder = await BeerOrder.findAll({
+      where: { OrderId: order_id }
+    });
+    if (beersFromOrder.length != 0) {
+      throw new Error("Le statut ne peut pas être modifié car la commande contient des bières.");
+    }
+  });
+
+module.exports.validateStatusOrderFinish = () =>
+  param("order_id").custom(
+    async order_id => {
+      const order = await Order.findByPk(order_id);
+      if (order.status === Status[1]) {
+        throw new Error("La commande est déjà terminée");
+      }
+    }
+  );
