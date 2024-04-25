@@ -3,7 +3,7 @@ const { seedDatabase } = require("./fake-data");
 
 const argv = yargs
   .usage(
-    "\n\nADD FIXTURES TO THE DB --> npm run fixtures -- <options>\n\nCette commande permet d'ajouter de la data dans la BDD en vue d'effectuer des tests.\n\nIMPORTANT: Démarrer d'abord le projet avec `npm start` puis lancer `npm fixtures -- <options>"
+    "\n\nADD FIXTURES TO THE DB --> npm run fixtures -- <options>\n\nCette commande permet d'ajouter de la data dans la BDD en vue d'effectuer des tests.\n\nIMPORTANT: Démarrer d'abord le projet avec `npm start` puis lancer `npm run fixtures -- <options>"
   )
   .option("bars", {
     alias: "b",
