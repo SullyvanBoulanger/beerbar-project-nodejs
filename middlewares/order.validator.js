@@ -9,7 +9,7 @@ module.exports.validatePositiveOrderPrice = () =>
   });
 
 module.exports.dateOrderTodayDate = () =>
-  body("date").custom((value, { req }) => {
+  body("date").custom((value) => {
     const todayDate = Date.now();
     const orderDate = new Date(value);
 
