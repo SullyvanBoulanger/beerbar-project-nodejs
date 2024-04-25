@@ -9,4 +9,6 @@ module.exports.requiredBodyField = () =>
   body(
     ["name", "degrees", "price"],
     "Tout les champs obligatoires ne sont pas renseignés"
-  ).exists();
+  )
+    .notEmpty()
+    .exists();
