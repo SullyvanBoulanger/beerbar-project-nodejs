@@ -1,0 +1,25 @@
+{
+  "name": "beerbar-project-nodejs-server",
+  "version": "1.0.0",
+  "description": "- [beerbar-project-nodejs](#beerbar-project-nodejs)   - [Instructions](#instructions)   - [Installation](#installation)   - [Start the project](#start-the-project)",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fixtures": "node -r dotenv/config database/fixtures"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "nodemon": "^3.1.0",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "yargs": "^17.7.2"
+  }
+}
