@@ -21,23 +21,17 @@ module.exports.createOrder = async (req, res) => {
 module.exports.updateOrder = async (req, res) => {
   try {
     const { order_id } = req.params;
-    const { name, price, bar_id, date, status } = req.body;
 
     const order = await Order.findByPk(order_id);
     if (!order) {
       return res.status(404).json({ error: Errors.ORDER_NOT_FOUND });
     }
 
-    await order.update({
-      name,
-      price,
-      bar_id,
-      date,
-      status,
-    });
+    await order.update(req.body);
 
     res.status(200).json(order);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: Errors.ORDER_UPDATE });
   }
 };
