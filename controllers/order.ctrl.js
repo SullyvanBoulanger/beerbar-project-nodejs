@@ -78,7 +78,7 @@ module.exports.getOrdersByBar = async (req, res) => {
       } else if (price_min > price_max) {
         return res.status(400).json({ error: Errors.ORDER_INCONSISTENT_PRICE });
       }
-    } else {
+    } else if (price_min && price_max) {
       return res.status(400).json({ error: Errors.ORDER_PRICE });
     }
 

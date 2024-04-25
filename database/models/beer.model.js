@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("..");
 const Bar = require("./bar.model");
+const Order = require("./order.model");
 
 const Beer = sequelize.define("Beer", {
   id: {
@@ -14,7 +15,7 @@ const Beer = sequelize.define("Beer", {
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
   degrees: {
     type: DataTypes.FLOAT,
@@ -35,5 +36,7 @@ const Beer = sequelize.define("Beer", {
     allowNull: false,
   },
 });
+
+Beer.hasMany(Order, { onDelete: "CASCADE" });
 
 module.exports = Beer;
