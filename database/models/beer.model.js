@@ -27,16 +27,9 @@ const Beer = sequelize.define("Beer", {
     validate: { min: 0 },
     allowNull: false,
   },
-  bar_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: Bar,
-      key: "id",
-    },
-    allowNull: false,
-  },
 });
 
 Beer.hasMany(Order, { onDelete: "CASCADE" });
+Beer.belongsTo(Bar, { foreignKey: "bar_id", onDelete: "CASCADE" });
 
 module.exports = Beer;
