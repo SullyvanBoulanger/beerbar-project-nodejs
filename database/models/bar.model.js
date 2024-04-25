@@ -13,7 +13,7 @@ const Bar = sequelize.define("Bar", {
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   tel: {
     type: DataTypes.STRING,
@@ -28,7 +28,7 @@ const Bar = sequelize.define("Bar", {
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
     unique: true,
     validate: {
       isEmail: {

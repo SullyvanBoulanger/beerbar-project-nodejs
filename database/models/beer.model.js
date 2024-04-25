@@ -14,7 +14,7 @@ const Beer = sequelize.define("Beer", {
   },
   description: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: true,
   },
   degrees: {
     type: DataTypes.FLOAT,
