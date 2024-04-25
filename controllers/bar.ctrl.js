@@ -46,7 +46,6 @@ module.exports.deleteBar = async (req, res) => {
 
     res.status(200).json({ message: "Bar supprimé avec succès." });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: Errors.BAR_DELETE });
   }
 };
