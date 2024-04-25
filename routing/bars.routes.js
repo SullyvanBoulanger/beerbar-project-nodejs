@@ -5,11 +5,13 @@ const {
   updateBar,
   deleteBar,
 } = require("../controllers/bar.ctrl");
+const { validateBar } = require("../middlewares/bar.validator");
+const { catchError } = require("../middlewares/catchError");
 const router = require("express").Router();
 
 router.get("", getBars);
 router.get("/:bar_id", getBar);
-router.post("", createBar);
+router.post("", [validateBar(), catchError], createBar);
 router.put("/:bar_id", updateBar);
 router.delete("/:bar_id", deleteBar);
 
