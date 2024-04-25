@@ -11,7 +11,14 @@ const BeerOrder = sequelize.define("BeerOrder", {
   },
 });
 
-Beer.belongsToMany(Order, { through: "BeerOrder" });
+Beer.belongsToMany(Order, { through: "BeerOrder", hooks: true });
 Order.belongsToMany(Beer, { through: "BeerOrder" });
+
+Order.beforeDestroy(async (order, options) => {
+  await BeerOrder.destroy({
+    where: { OrderId: order.id },
+    transaction: options.transaction,
+  });
+});
 
 module.exports = BeerOrder;

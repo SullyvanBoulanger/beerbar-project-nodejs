@@ -8,18 +8,36 @@ const {
 const {
   validateOrderStatus,
   validatePositiveOrderPrice,
+  dateOrderTodayDate,
+  requiredBodyField,
+  validateStatusOrderBeers,
+  validateStatusOrderFinish
 } = require("../middlewares/order.validator");
 const { catchError } = require("../middlewares/catchError");
 const router = require("express").Router();
 
 router.post(
   "/bars/:bar_id/orders",
-  [validateOrderStatus(), validatePositiveOrderPrice(), catchError],
+  [
+    validateOrderStatus(),
+    dateOrderTodayDate(),
+    requiredBodyField(),
+    validatePositiveOrderPrice(),
+    catchError,
+  ],
   createOrder
 );
 router.put(
   "/orders/:order_id",
-  [validateOrderStatus(), validatePositiveOrderPrice(), catchError],
+  [
+    validateOrderStatus(),
+    dateOrderTodayDate(),
+    requiredBodyField(),
+    validatePositiveOrderPrice(),
+    validateStatusOrderBeers(),
+    validateStatusOrderFinish(),
+    catchError,
+  ],
   updateOrder
 );
 router.delete("/orders/:order_id", deleteOrder);
