@@ -39,7 +39,7 @@ module.exports.validateStatusOrderBeers = () =>
       where: { OrderId: order_id }
     });
     if (beersFromOrder.length != 0) {
-      throw new Error("Le status ne peut pas etre modifier car il contient des bieres.");
+      throw new Error("Le statut ne peut pas être modifié car la commande contient des bières.");
     }
   });
 
@@ -48,7 +48,7 @@ module.exports.validateStatusOrderFinish = () =>
     async order_id => {
       const order = await Order.findByPk(order_id);
       if (order.status === Status[1]) {
-        throw new Error("La commande est deja terminee");
+        throw new Error("La commande est déjà terminée");
       }
     }
   );

@@ -8,14 +8,10 @@ const {
 const {
   validateOrderStatus,
   validatePositiveOrderPrice,
-<<<<<<< HEAD
   dateOrderTodayDate,
   requiredBodyField,
-  validateStatusOrderBeers
-=======
   validateStatusOrderBeers,
   validateStatusOrderFinish
->>>>>>> 8f0f3f2... valid: status end lock the put on the order
 } = require("../middlewares/order.validator");
 const { catchError } = require("../middlewares/catchError");
 const router = require("express").Router();
