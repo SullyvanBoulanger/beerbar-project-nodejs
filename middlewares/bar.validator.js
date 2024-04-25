@@ -12,3 +12,9 @@ module.exports.validateBar = () =>
       }
       return true;
     });
+
+module.exports.requiredBodyField = () =>
+  body(
+    ["name", "address", "email"],
+    "Tout les champs obligatoires ne sont pas renseignés"
+  ).exists();
