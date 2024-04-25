@@ -35,7 +35,6 @@ module.exports.updateOrder = async (req, res) => {
     });
     res.status(200).json(order);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: Errors.ORDER_UPDATE });
   }
 };
