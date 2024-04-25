@@ -30,18 +30,18 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 ### Bars
 
 - id : integer
-- name : string, unique
-- adresse: string
-- tel: string
-- email: string
-- description: text
+- name : string, unique, obligatoire
+- adresse: string, obligatoire
+- tel: string, optionnel
+- email: string, obligatoire
+- description: text, optionnel
 
 ### Biere
 
-- name: string
-- description: text
-- degree : float
-- prix: float, min(0)
+- name: string, obligatoire
+- description: text, optionnel
+- degree : float, obligatoire
+- prix: float, min(0), obligatoire
 - bars_id: integer
 
 ### Biere_Commande (table de liaison)
@@ -51,11 +51,11 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Commande
 
-- name: string
-- prix: float, min(0)
+- name: string, obligatoire
+- prix: float, min(0), obligatoire
 - bars_id: integer
-- date: date
-- status : string (en cours, terminée)
+- date: date, obligatoire
+- status : string (en cours, terminée), obligatoire
 
 ## Liste des endpoints
 
@@ -69,11 +69,11 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere
 
-- POST /bars/:id_bar/biere => Ajouter un biere à un bars
-- PUT /biere/:id_biere => Modifier un biere
-- DELETE /biere/:id_biere => Supprimer un biere d'un bars
-- GET /bars/:id_bar/biere => Liste des biere d'un bars
-- GET /biere/:id_biere => Détail d'un biere
+- POST /bars/:id_bar/biere => Ajouter une bière à un bars
+- PUT /biere/:id_biere => Modifier une bière
+- DELETE /biere/:id_biere => Supprimer une bière d'un bars
+- GET /bars/:id_bar/biere => Liste des bières d'un bars
+- GET /biere/:id_biere => Détail d'une bière
 
 ### Commande
 
@@ -85,8 +85,8 @@ Il permet aussi de faire des recherche avancées sur les biere et les commandes.
 
 ### Biere_commande
 
-- POST /commandes/:id_commande/biere/:id_biere => Ajouter un biere à une commande
-- DELETE /commandes/:id_commande/biere/:id_biere => Supprimer un biere d'une commande
+- POST /commandes/:id_commande/biere/:id_biere => Ajouter une biere à une commande
+- DELETE /commandes/:id_commande/biere/:id_biere => Supprimer une biere d'une commande
 
 ## Liste des endpoints avancés
 
